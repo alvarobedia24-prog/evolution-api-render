@@ -1,1 +1,24 @@
-
+name: Mirror Evolution API a GHCR
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/main.yml
+permissions:
+  packages: write
+  contents: read
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login a GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Copiar imagen de Docker Hub a GHCR
+        run: |
+          docker pull evoapicloud/evolution-api:v2.3.4
+          docker tag evoapicloud/evolution-api:v2.3.4 ghcr.io/alvarobedia24-prog/evolution-api:v2.3.4
+          docker push ghcr.io/alvarobedia24-prog/evolution-api:v2.3.4
