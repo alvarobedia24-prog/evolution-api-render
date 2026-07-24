@@ -1,1 +1,1 @@
-FROM evoapicloud/evolution-api:v2.3.4
+FROM ghcr.io/alvarobedia24-prog/evolution-api:v2.3.4
